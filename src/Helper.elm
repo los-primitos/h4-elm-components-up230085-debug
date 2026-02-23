@@ -1,8 +1,8 @@
-module Helper exposing (evalChars, headers, hyperlink, isUpperChars, joinWords)
+module Helper exposing (..)
 
 import Char
-import Html exposing (Html, a, div, h1, h2, h3, h4, h5, h6, text)
-import Html.Attributes exposing (href)
+import Html
+import Html.Attributes
 
 
 
@@ -10,8 +10,8 @@ import Html.Attributes exposing (href)
 
 
 joinWords : String -> String -> String
-joinWords str1 str2 =
-    str1 ++ str2
+joinWords first second =
+    String.append first second
 
 
 
@@ -20,7 +20,7 @@ joinWords str1 str2 =
 
 isUpperChars : List Char -> List Bool
 isUpperChars chars =
-    List.map Char.isUpper chars
+    List.map (\c -> Char.isUpper c) chars
 
 
 
@@ -28,30 +28,36 @@ isUpperChars chars =
 
 
 evalChars : List Char -> (Char -> Bool) -> List Bool
-evalChars chars fn =
-    List.map fn chars
-
-
-
--- headers
-
-
-headers : String -> Html msg
-headers content =
-    div []
-        [ h1 [] [ text content ]
-        , h2 [] [ text content ]
-        , h3 [] [ text content ]
-        , h4 [] [ text content ]
-        , h5 [] [ text content ]
-        , h6 [] [ text content ]
-        ]
+evalChars chars transformer =
+    List.map transformer chars
 
 
 
 -- hyperlink
 
 
-hyperlink : String -> String -> Html msg
-hyperlink url label =
-    a [ href url ] [ text label ]
+hyperlink : String -> String -> Html.Html msg
+hyperlink link label =
+    Html.a
+        [ Html.Attributes.href link ]
+        [ Html.text label ]
+
+
+
+-- headers
+
+
+headers : String -> Html.Html msg
+headers content =
+    let
+        makeHeader tag =
+            tag [] [ Html.text content ]
+    in
+    Html.div []
+        [ makeHeader Html.h1
+        , makeHeader Html.h2
+        , makeHeader Html.h3
+        , makeHeader Html.h4
+        , makeHeader Html.h5
+        , makeHeader Html.h6
+        ]
