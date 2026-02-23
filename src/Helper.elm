@@ -1,11 +1,13 @@
-module Helper exposing (joinWords, isUpperChars, evalChars, headers, hyperlink)
+module Helper exposing (evalChars, headers, hyperlink, isUpperChars, joinWords)
 
 import Char
 import Html exposing (Html, a, div, h1, h2, h3, h4, h5, h6, text)
 import Html.Attributes exposing (href)
 
 
+
 -- joinWords
+
 
 joinWords : String -> String -> String
 joinWords str1 str2 =
@@ -15,6 +17,7 @@ joinWords str1 str2 =
 
 -- isUpperChars
 
+
 isUpperChars : List Char -> List Bool
 isUpperChars chars =
     List.map Char.isUpper chars
@@ -23,6 +26,7 @@ isUpperChars chars =
 
 -- evalChars
 
+
 evalChars : List Char -> (Char -> Bool) -> List Bool
 evalChars chars fn =
     List.map fn chars
@@ -30,6 +34,7 @@ evalChars chars fn =
 
 
 -- headers
+
 
 headers : String -> Html msg
 headers content =
@@ -45,6 +50,7 @@ headers content =
 
 
 -- hyperlink
+
 
 hyperlink : String -> String -> Html msg
 hyperlink url label =
