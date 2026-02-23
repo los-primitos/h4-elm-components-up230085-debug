@@ -1,63 +1,43 @@
 module Helper exposing (..)
 
-import Char
 import Html
 import Html.Attributes
 
 
-
--- joinWords
-
-
 joinWords : String -> String -> String
-joinWords first second =
-    String.append first second
-
-
-
--- isUpperChars
+joinWords word1 word2 =
+    word1 ++ word2
 
 
 isUpperChars : List Char -> List Bool
-isUpperChars chars =
-    List.map (\c -> Char.isUpper c) chars
-
-
-
--- evalChars
+isUpperChars list =
+    List.map Char.isUpper list
 
 
 evalChars : List Char -> (Char -> Bool) -> List Bool
-evalChars chars transformer =
-    List.map transformer chars
-
-
-
--- hyperlink
-
-
-hyperlink : String -> String -> Html.Html msg
-hyperlink link label =
-    Html.a
-        [ Html.Attributes.href link ]
-        [ Html.text label ]
-
-
-
--- headers
+evalChars list funTrans =
+    List.map funTrans list
 
 
 headers : String -> Html.Html msg
-headers content =
-    let
-        makeHeader tag =
-            tag [] [ Html.text content ]
-    in
+headers param =
     Html.div []
-        [ makeHeader Html.h1
-        , makeHeader Html.h2
-        , makeHeader Html.h3
-        , makeHeader Html.h4
-        , makeHeader Html.h5
-        , makeHeader Html.h6
+        [ Html.h1 [] [ Html.text param ]
+        , Html.h2 [] [ Html.text param ]
+        , Html.h3 [] [ Html.text param ]
+        , Html.h4 [] [ Html.text param ]
+        , Html.h5 [] [ Html.text param ]
+        , Html.h6 [] [ Html.text param ]
         ]
+
+
+hyperlink : String -> String -> Html.Html msg
+hyperlink url text =
+    Html.a [ Html.Attributes.href url ] [ Html.text text ]
+
+
+
+-- Puedes usar una definición como la siguiente para probar y visualizar tus resultados, solo debes definir "headers" y "hyperlink"
+--main : Html.Html msg
+--main =
+--    Html.div [] [ headers "Titulos", hyperlink "https://upa.edu.mx" "My School" ]
